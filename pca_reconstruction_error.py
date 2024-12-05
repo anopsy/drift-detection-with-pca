@@ -44,9 +44,9 @@ def update_plot(corr_factor):
     reconstruction_error = np.mean((data_current - data_reconstructed) ** 2, axis=1).mean()
 
     # Update the reconstruction errors DataFrame if the current correlation factor is not already present
-    if corr_factor not in st.session_state['reconstruction_errors_df']['Correlation Factor'].values:
-        new_row = pd.DataFrame({'Correlation Factor': [corr_factor], 'Reconstruction Error': [reconstruction_error]})
-        st.session_state['reconstruction_errors_df'] = pd.concat([st.session_state['reconstruction_errors_df'], new_row], ignore_index=True)
+    
+    new_row = pd.DataFrame({'Correlation Factor': [corr_factor], 'Reconstruction Error': [reconstruction_error]})
+    st.session_state['reconstruction_errors_df'] = pd.concat([st.session_state['reconstruction_errors_df'], new_row], ignore_index=True)
 
     # Normalize the correlation factor for color mapping
     norm = Normalize(vmin=-1, vmax=1)
@@ -54,7 +54,7 @@ def update_plot(corr_factor):
 
     # Plotting
     fig = plt.figure(figsize=(16, 16))
-    gs = fig.add_gridspec(3, 3, width_ratios=[1, 4, 1], height_ratios=[1, 4, 1], wspace=0.1, hspace=0.1)
+    gs = fig.add_gridspec(3, 3, width_ratios=[1, 4, 1], height_ratios=[1, 4, 1], wspace=0.2, hspace=0.2)
     ax_scatter = fig.add_subplot(gs[1, 1], projection='3d')
     ax_histx = fig.add_subplot(gs[0, 1])
     ax_histy = fig.add_subplot(gs[1, 2])
@@ -86,8 +86,8 @@ def update_plot(corr_factor):
     ax_line.set_xlabel('Correlation Factor')
     ax_line.set_ylabel('PCA Reconstruction Error')
     ax_line.set_title('PCA Reconstruction Error vs Correlation Factor')
-    ax_line.set_xlim(-1, 1)
-    ax_line.set_ylim(0, 0.4)
+    #ax_line.set_xlim(-1, 1)
+    ax_line.set_ylim(0, 0.5)
 
 
     # Add a color bar for reference
